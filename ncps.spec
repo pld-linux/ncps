@@ -1,15 +1,17 @@
 Summary:	Another processes manager utility
 Summary(pl):	Kolejny zarz±dca procesów
 Name:		ncps
-Version:	0.493
-Release:	2
+Version:	0.55
+Release:	0.1
 License:	GPL v2+
 Group:		Applications/System
-Source0:	http://www.columbia.edu/~pc171/files/%{name}-%{version}.tar.gz
-# Source0-md5:	309e69763fdf4d745aa4c5e1668383b3
-Patch0:		%{name}-makefile.patch
-URL:		http://www.columbia.edu/~pc171/ncps.html
+Source0:	http://www.math.ohio-state.edu/~pschan/ncps/%{name}-%{version}.tar.gz
+# Source0-md5:	de18df8cdf5d238a68ae85f9901393bd
+Patch0:		%{name}-FILLBUG.patch
+URL:		http://www.math.ohio-state.edu/~pschan/ncps/
 BuildRequires:	ncurses-devel
+BuildRequires:	procps-devel
+BuildRequires:	procps-static
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -37,16 +39,15 @@ Mo¿liwo¶ci:
 %patch0 -p1
 
 %build
-%{__make} \
-	REDHAT=0 \
-	CC="%{__cc}" \
-	OPT="-I/usr/include/ncurses %{rpmcflags}" 
+CFLAGS="%{rpmcflags} -I/usr/include/ncurses"
+%configure2_13
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_bindir}
 
-install ncps $RPM_BUILD_ROOT%{_bindir}
+install src/ncps $RPM_BUILD_ROOT%{_bindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
