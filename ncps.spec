@@ -5,8 +5,6 @@ Version:	0.493
 Release:	2
 License:	GPL
 Group:		Applications/System
-Group(de):	Applikationen/System
-Group(pl):	Aplikacje/System
 Source0:	http://www.columbia.edu/~pc171/files/%{name}-%{version}.tar.gz
 Patch0:		%{name}-makefile.patch
 URL:		http://www.columbia.edu/~pc171/ncps.html
