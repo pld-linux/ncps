@@ -1,0 +1,8 @@
+--- ncps-0.55/src/proc.h~	2002-03-15 02:38:59.000000000 +0000
++++ ncps-0.55/src/proc.h	2003-07-04 10:02:23.000000000 +0000
+@@ -1,4 +1,5 @@
+ #define TIME_LENGTH 12
++#define PROC_FILLBUG 0x3f
+ 
+ typedef struct etime_s {
+ 
