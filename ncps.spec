@@ -3,8 +3,9 @@ Name:		ncps
 Version:	0.493
 Release:	1
 License:	GPL
-Group:		Utilities/System
-Group(pl):	Narzêdzia/System
+Group:		Applications/System
+Group(de):	Applikationen/System
+Group(pl):	Aplikacje/System
 Source0:	http://www.columbia.edu/~pc171/files/%{name}-%{version}.tar.gz
 Patch0:		%{name}-makefile.patch
 URL:		http://www.columbia.edu/~pc171/ncps.html
@@ -26,13 +27,13 @@ Festures:
 %patch0 -p1
 
 %build
-%{__make} REDHAT=0 OPT="-I/usr/include/ncurses $RPM_OPT_FLAGS"
+%{__make} REDHAT=0 OPT="-I/usr/include/ncurses %{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{_bindir}
 
-install -s ncps $RPM_BUILD_ROOT/%{_bindir}
+install ncps $RPM_BUILD_ROOT/%{_bindir}
 
 gzip -9nf README
 
