@@ -3,7 +3,7 @@ Summary(pl):	Kolejny menad¿er procesów
 Name:		ncps
 Version:	0.493
 Release:	2
-License:	GPL
+License:	GPL v2
 Group:		Applications/System
 Source0:	http://www.columbia.edu/~pc171/files/%{name}-%{version}.tar.gz
 Patch0:		%{name}-makefile.patch
@@ -43,12 +43,10 @@ install -d $RPM_BUILD_ROOT%{_bindir}
 
 install ncps $RPM_BUILD_ROOT%{_bindir}
 
-gzip -9nf README
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc README
 %attr(755,root,root) %{_bindir}/ncps
