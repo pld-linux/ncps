@@ -8,6 +8,7 @@ Group:		Applications/System
 Source0:	http://www.columbia.edu/~pc171/files/%{name}-%{version}.tar.gz
 Patch0:		%{name}-makefile.patch
 URL:		http://www.columbia.edu/~pc171/ncps.html
+BuildRequires:	ncurses-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -35,7 +36,10 @@ Mo¿liwo¶ci:
 %patch0 -p1
 
 %build
-%{__make} REDHAT=0 OPT="-I/usr/include/ncurses %{rpmcflags}"
+%{__make} \
+	REDHAT=0 \
+	CC="%{__cc}" \
+	OPT="-I/usr/include/ncurses %{rpmcflags}" 
 
 %install
 rm -rf $RPM_BUILD_ROOT
