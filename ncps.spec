@@ -2,15 +2,17 @@ Summary:	Another processes manager utility
 Summary(pl):	Kolejny zarz±dca procesów
 Name:		ncps
 Version:	0.55
-Release:	0.1
+Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://www.math.ohio-state.edu/~pschan/ncps/%{name}-%{version}.tar.gz
 # Source0-md5:	de18df8cdf5d238a68ae85f9901393bd
 Patch0:		%{name}-FILLBUG.patch
+Patch1:		%{name}-procps.patch
+Patch2:		%{name}-fixes.patch
 URL:		http://www.math.ohio-state.edu/~pschan/ncps/
 BuildRequires:	ncurses-devel
-BuildRequires:	procps-devel >= 3.1.9-2
+BuildRequires:	procps-devel >= 3.1.13
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -36,6 +38,8 @@ Mo¿liwo¶ci:
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
 CFLAGS="%{rpmcflags} -I/usr/include/ncurses"
@@ -44,14 +48,15 @@ CFLAGS="%{rpmcflags} -I/usr/include/ncurses"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_bindir}
 
-install src/ncps $RPM_BUILD_ROOT%{_bindir}
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README
+%doc AUTHORS BUGS CONTRIBUTORS ChangeLog
 %attr(755,root,root) %{_bindir}/ncps
+%{_mandir}/man1/ncps.1*
