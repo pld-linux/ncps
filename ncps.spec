@@ -10,8 +10,7 @@ Source0:	http://www.math.ohio-state.edu/~pschan/ncps/%{name}-%{version}.tar.gz
 Patch0:		%{name}-FILLBUG.patch
 URL:		http://www.math.ohio-state.edu/~pschan/ncps/
 BuildRequires:	ncurses-devel
-BuildRequires:	procps-devel
-BuildRequires:	procps-static
+BuildRequires:	procps-devel >= 3.1.9-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
