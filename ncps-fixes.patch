@@ -1,0 +1,21 @@
+--- ncps-0.55/src/ncps.c.orig	2002-03-18 01:38:51.000000000 +0100
++++ ncps-0.55/src/ncps.c	2004-04-02 19:22:58.573938616 +0200
+@@ -174,7 +174,6 @@
+     parse_rc_color(path, color_config);
+     
+     free(path);
+-    free(homedir);
+ 
+     start_color();   
+     
+--- ncps-0.55/src/gui.c.orig	2004-04-02 01:42:30.000000000 +0200
++++ ncps-0.55/src/gui.c	2004-04-02 19:25:38.310654944 +0200
+@@ -335,7 +335,7 @@
+   if(key)
+     tag = key;
+   
+-  tmp = (char *) malloc(COLS * sizeof(char));
++  tmp = (char *) malloc(COLS * sizeof(char) + 1);
+   for (i = 0; i < COLS; i++) {
+     tmp[i] = ' ';
+   }
