@@ -23,8 +23,8 @@ Features:
  - regexp support in search mode.
 
 %description -l pl
-ncps jest programem do zarz±dzania procesami pozwalaj±cym u¿ykownikowi
-ogl±daæ i nimi zarz±dzaæ.
+ncps jest programem do zarz±dzania procesami, pozwalaj±cym
+u¿ytkownikowi ogl±daæ je i nimi zarz±dzaæ.
 
 Mo¿liwo¶ci:
 - mo¿na ³atwo wys³aæ dowolne polecenie do procesu; drzewka s± zwijalne
