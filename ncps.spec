@@ -10,12 +10,14 @@ URL:		http://www.columbia.edu/~pc171/ncps.html
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Ncps is a processes manager which allows user to see and manage processes.
+Ncps is a processes manager which allows user to see and manage
+processes.
 
 Festures:
- - you can issue arbitrary command to a process. Trees are now collapsible.
- - you can kill a group of selected processes, and you can monitor (refresh)
-   a group of selected processes.
+ - you can issue arbitrary command to a process. Trees are now
+   collapsible.
+ - you can kill a group of selected processes, and you can monitor
+   (refresh) a group of selected processes.
  - regexp support in search mode.
 
 %prep
