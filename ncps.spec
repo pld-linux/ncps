@@ -1,11 +1,12 @@
 Summary:	another processes manager utility
 Name:		ncps
-Version:	0.48
+Version:	0.493
 Release:	1
 License:	GPL
 Group:		Utilities/System
 Group(pl):	Narzêdzia/System
 Source0:	http://www.columbia.edu/~pc171/files/%{name}-%{version}.tar.gz
+Patch0:		%{name}-makefile.patch
 URL:		http://www.columbia.edu/~pc171/ncps.html
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -21,10 +22,11 @@ Festures:
  - regexp support in search mode.
 
 %prep
-%setup -q 
+%setup -q
+%patch0 -p1
 
 %build
-%{__make} REDHAT=0 INC="-I/usr/include/ncurses $RPM_OPT_FLAGS"
+%{__make} REDHAT=0 OPT="-I/usr/include/ncurses $RPM_OPT_FLAGS"
 
 %install
 rm -rf $RPM_BUILD_ROOT
