@@ -24,7 +24,7 @@ Festures:
 %setup -q 
 
 %build
-make REDHAT=0 INC="-I/usr/include/ncurses $RPM_OPT_FLAGS"
+%{__make} REDHAT=0 INC="-I/usr/include/ncurses $RPM_OPT_FLAGS"
 
 %install
 rm -rf $RPM_BUILD_ROOT
