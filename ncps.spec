@@ -6,6 +6,7 @@ Release:	2
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://www.columbia.edu/~pc171/files/%{name}-%{version}.tar.gz
+# Source0-md5:	309e69763fdf4d745aa4c5e1668383b3
 Patch0:		%{name}-makefile.patch
 URL:		http://www.columbia.edu/~pc171/ncps.html
 BuildRequires:	ncurses-devel
