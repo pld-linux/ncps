@@ -1,0 +1,194 @@
+--- ncps-0.55/src/base.h.orig	2002-03-15 04:16:46.000000000 +0100
++++ ncps-0.55/src/base.h	2004-04-02 01:36:47.745982672 +0200
+@@ -16,6 +16,7 @@
+ #include <pwd.h>
+ #include <asm/param.h>
+ #include <term.h>
++#undef tab
+ 
+ #if HAVE_LIBPROC
+ #include <proc/readproc.h>
+--- ncps-0.55/src/tree.c.orig	2002-03-18 01:17:47.000000000 +0100
++++ ncps-0.55/src/tree.c	2004-04-02 01:39:20.298791120 +0200
+@@ -27,7 +27,7 @@
+ 	    branch->children = (tree **) realloc(branch->children, family_size * sizeof(tree*));
+ 	  }
+ 	  branch->children[j] = (tree *) malloc(sizeof(tree));
+-	  branch->children[j]->pid = pidlist[i].proc->pid;
++	  branch->children[j]->pid = pidlist[i].proc->tid;
+ 	  j++;
+ 	}
+       }
+@@ -40,7 +40,7 @@
+ 	  }
+ 	  
+ 	  branch->children[j] = (tree *) malloc(sizeof(tree));
+-	  branch->children[j]->pid = pidlist[i].proc->pid;
++	  branch->children[j]->pid = pidlist[i].proc->tid;
+ 	  j++;	   
+ 	}
+       }
+--- ncps-0.55/src/proc.c.orig	2003-01-09 14:38:03.000000000 +0100
++++ ncps-0.55/src/proc.c	2004-04-02 01:41:59.475592568 +0200
+@@ -103,7 +103,7 @@
+     //ptp = openproc(PROC_FILLCOM | PROC_FILLENV | PROC_FILLUSR | PROC_FILLBUG);
+     if (uidlist)
+       {
+-	ptp = openproc (PROC_FILLANY | PROC_FILLMEM | PROC_FILLCOM | PROC_FILLENV |  PROC_FILLSTAT | PROC_FILLSTATUS | PROC_FILLUSR | PROC_UID,
++	ptp = openproc (PROC_FILLMEM | PROC_FILLCOM | PROC_FILLENV |  PROC_FILLSTAT | PROC_FILLSTATUS | PROC_FILLUSR | PROC_UID,
+ 		  uidlist + 1, uidlist[0]);
+       }
+     else
+@@ -138,7 +138,7 @@
+     
+ #if DEBUG
+     for (i = 0; i < chow->count; i++) {
+-	printf("%i\n", tmp[i].proc->pid);
++	printf("%i\n", tmp[i].proc->tid);
+     }
+ #endif
+ 
+@@ -160,7 +160,7 @@
+   for(i = 0; i < count; i++) {
+ 
+ #if DEBUG
+-    printf("as pid: %i\n", tmp[i].proc->pid);
++    printf("as pid: %i\n", tmp[i].proc->tid);
+ #endif   
+ 
+     tmp[0].proc->euser[15] = '\0';
+@@ -171,12 +171,12 @@
+ 
+     tmp[i].pmem = tmp[i].proc->rss * 1000 / PAGEDIV;
+     dev_to_tty(tmp[i].ttyc, TTYC, tmp[i].proc->tty,
+-	       tmp[i].proc->pid, ABBREV_DEV);
++	       tmp[i].proc->tid, ABBREV_DEV);
+     
+     /* in tree view, PID 1 is automatically expanded */
+-    tmp[i].expand = (tmp[i].proc->pid == 1) ? 1 : 0;
++    tmp[i].expand = (tmp[i].proc->tid == 1) ? 1 : 0;
+     
+-    tmp[i].is_selected = check_selection(tmp[i].proc->pid);
++    tmp[i].is_selected = check_selection(tmp[i].proc->tid);
+     
+     fill_pcpu(tmp[i].proc);
+     get_lc(&(tmp[i]));
+@@ -307,7 +307,7 @@
+ 
+     for (i = 0; i < count; i++) {
+ 	if (regexec(&preg, list[i].pname, 0, NULL, 0) == 0) {
+-	  pos = pid_pos(list[i].proc->pid, mother->pidlist, mother->count);
++	  pos = pid_pos(list[i].proc->tid, mother->pidlist, mother->count);
+ 	  mother->pidlist[pos].is_selected = 1;
+ 	}
+     }
+@@ -393,7 +393,7 @@
+ 		template_size += PT_SIZE;
+ 		selection_template = realloc(selection_template, template_size * sizeof(int));
+ 	    }
+-	    selection_template[j] = mother->pidlist[i].proc->pid;
++	    selection_template[j] = mother->pidlist[i].proc->tid;
+ 	    j++;
+ 	}
+       }
+@@ -436,7 +436,7 @@
+ 		else if (tag == FTTY)
+ 		    diff = alpha(pidlist[i].ttyc, pidlist[i + gap].ttyc);
+ 		else if (tag == FPID)
+-		    diff = pidlist[i].proc->pid - pidlist[i + gap].proc->pid;
++		    diff = pidlist[i].proc->tid - pidlist[i + gap].proc->tid;
+ 		else if (tag == FCPU)
+ 		    diff = pidlist[i].proc->pcpu - pidlist[i + gap].proc->pcpu;
+ 		else if (tag == FMEM)
+@@ -484,7 +484,7 @@
+     i = 0;
+ 
+     while(check && i < count) {	
+-	if (pidlist[i].proc->pid == pid)
++	if (pidlist[i].proc->tid == pid)
+ 	    check = 0;
+ 	else
+ 	    i++;
+--- ncps-0.55/src/gui.c.orig	2003-01-07 13:45:10.000000000 +0100
++++ ncps-0.55/src/gui.c	2004-04-02 01:42:30.700845608 +0200
+@@ -44,7 +44,7 @@
+ 
+     for (i=0; i<count; ++i) {
+ 	if (list[i].is_selected) {
+-	    if (kill(list[i].proc->pid, sig) == -1) {
++	    if (kill(list[i].proc->tid, sig) == -1) {
+ 	      /* XXX we should do something about... */
+ 	    };
+ 	    group = 1;
+@@ -52,7 +52,7 @@
+     }
+ 
+     if (!group)
+-	kill(list[selected].proc->pid, sig);
++	kill(list[selected].proc->tid, sig);
+ 	
+     sleep(1);
+ }
+@@ -85,7 +85,7 @@
+ 
+   if(field_op_[FPID]) {
+   tmp = (char *) malloc(PID * sizeof(char));
+-  sprintf(tmp, "%i", procinfo.proc->pid);
++  sprintf(tmp, "%i", procinfo.proc->tid);
+ 
+   for(i = 0; i < PID; i++) {
+     if (tmp[i] && (tmp[i] != '\0'))
+@@ -282,7 +282,7 @@
+ 		    attrset(COLOR_PAIR(NORMAL_COLOR) | A_NORMAL);
+ 
+ 		if (current_row == current_highlight) {
+-		  pname = chow->pidlist[pid_pos(options[pos].proc->pid, chow->pidlist, chow->count)].pname;
++		  pname = chow->pidlist[pid_pos(options[pos].proc->tid, chow->pidlist, chow->count)].pname;
+ 		  l = strlen(pname);
+ 		  
+ 		  if(COLS < l) {
+@@ -825,7 +825,7 @@
+      
+     case '\n':
+       if (t_view) {
+-	pos = pid_pos(list[selected].proc->pid, chow->pidlist, chow->count);
++	pos = pid_pos(list[selected].proc->tid, chow->pidlist, chow->count);
+ 	chow->pidlist[pos].expand = (chow->pidlist[pos].expand + 1) % 2;
+ 	e_view = 0;
+ 	clear_all_screen();
+@@ -890,7 +890,7 @@
+ 
+     case 'c':
+       if (chow->count) {
+-	sprintf(input, "%i", list[selected].proc->pid);
++	sprintf(input, "%i", list[selected].proc->tid);
+ 	input_dlg(input, "command:");
+ 	if (input[0] != '\0') {
+ 	  def_prog_mode();
+@@ -909,7 +909,7 @@
+     case ' ':
+       if (count) {
+ 	sub = chow;
+-	pos = pid_pos(list[selected].proc->pid, sub->pidlist, sub->count);
++	pos = pid_pos(list[selected].proc->tid, sub->pidlist, sub->count);
+ 	sub->pidlist[pos].is_selected = (sub->pidlist[pos].is_selected + 1) % 2;
+       }
+       move_down(1, &selected_row, &selected, count);
+@@ -919,7 +919,7 @@
+     case 'a':
+       for (i = 0; i < count; i++) {
+ 	sub = chow;
+-	pos = pid_pos(list[i].proc->pid, sub->pidlist, sub->count);
++	pos = pid_pos(list[i].proc->tid, sub->pidlist, sub->count);
+ 	sub->pidlist[pos].is_selected = 1;
+       }
+       tmp = NORMAL;
+@@ -936,7 +936,7 @@
+       for (i = 0; i < count; i++) {
+ 	int pmt;
+ 	sub = chow;
+-	  pos = pid_pos(list[i].proc->pid, sub->pidlist, sub->count);
++	  pos = pid_pos(list[i].proc->tid, sub->pidlist, sub->count);
+ 	  pmt = sub->pidlist[pos].is_selected;
+ 	  sub->pidlist[pos].is_selected = !pmt;
+       }
