@@ -1,0 +1,55 @@
+--- ncps-0.493/proc/Makefile~	Sun Jun 11 23:38:06 2000
++++ ncps-0.493/proc/Makefile	Mon Dec 25 23:48:42 2000
+@@ -10,14 +10,14 @@
+ HDRDIR     = $(TOPDIR)/include/$(NAME)#	where to put .h files
+ LIBDIR     = $(TOPDIR)/lib#		where to put library files
+ SHLIBDIR   = /lib#			where to put shared library files
+-HDROWN     = -o root -g root #		owner of header files
+-LIBOWN     = -o root -g root #		owner of library files
++HDROWN     = #		owner of header files
++LIBOWN     = #		owner of library files
+ INSTALL    = install
+ 
+ # COMPILATION OPTIONS
+-CC         =  gcc -O2 -D_GNU_SOURCE #-ggdb # easy to command-line override
++CC         =  gcc -D_GNU_SOURCE #-ggdb # easy to command-line override
+ #CC         =  gcc -pg -O2 -D_GNU_SOURCE -g3 # easy to command-line override
+-CFLAGS     =  -I.. -W -Wall -Wstrict-prototypes -Wshadow -Wcast-align
++CFLAGS     = $(OPT) -I.. -W -Wall -Wstrict-prototypes -Wshadow -Wcast-align
+ 
+ # ----------------------------------------------------------------#
+ # The rest is the auto-magic section -- highly GNU make dependent #
+--- ncps-0.493/Makefile~	Sun Jun 11 23:45:29 2000
++++ ncps-0.493/Makefile	Mon Dec 25 23:50:12 2000
+@@ -18,25 +18,25 @@
+ 	cd ./proc && make && cd ..
+ 
+ ncps: $(OBJECTS)
+-	gcc -o ncps $(OBJECTS) -Wall -pedantic -static $(INC) $(LIBS) -ggdb
++	gcc -o ncps $(OBJECTS) -Wall -pedantic $(INC) $(LIBS)
+ 
+ static: $(OBJECTS)
+ 	gcc -o ncps-static $(OBJECTS) -static -Wall -pedantic -lncurses -lproc -lm
+ 
+ tree.o: tree.c tree.h base.h
+-	gcc -Wall -pedantic -c tree.c -g $(INC)
++	gcc -Wall $(OPT) -pedantic -c tree.c -g $(INC)
+ 
+ escape.o: escape.c
+-	gcc -Wall -pedantic -c escape.c -g $(INC)
++	gcc -Wall $(OPT) -pedantic -c escape.c -g $(INC)
+ 
+ gui.o: gui.c gui.h base.h tree.h proc.h 
+-	gcc -Wall -pedantic -c gui.c -g $(INC)
++	gcc -Wall $(OPT) -pedantic -c gui.c -g $(INC)
+ 
+ proc.o: proc.c proc.h base.h tree.h
+-	gcc -Wall -pedantic -c proc.c -g $(INC)
++	gcc -Wall $(OPT) -pedantic -c proc.c -g $(INC)
+ 
+ ncps.o: ncps.c ncps.h base.h tree.h proc.h gui.h
+-	gcc -Wall -pedantic -c ncps.c -g $(INC)
++	gcc -Wall $(OPT) -pedantic -c ncps.c -g $(INC)
+ 
+ clean:
+ 	rm -f ncps *.o *~ core
