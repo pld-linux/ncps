@@ -3,7 +3,7 @@ Summary(pl):	Kolejny menad¿er procesów
 Name:		ncps
 Version:	0.493
 Release:	2
-License:	GPL v2
+License:	GPL v2+
 Group:		Applications/System
 Source0:	http://www.columbia.edu/~pc171/files/%{name}-%{version}.tar.gz
 Patch0:		%{name}-makefile.patch
