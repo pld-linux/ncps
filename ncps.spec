@@ -1,7 +1,8 @@
-Summary:	another processes manager utility
+Summary:	Another processes manager utility
+Summary(pl):	Kolejny menad¿er procesów
 Name:		ncps
 Version:	0.493
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/System
 Group(de):	Applikationen/System
@@ -15,12 +16,21 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Ncps is a processes manager which allows user to see and manage
 processes.
 
-Festures:
+Features:
  - you can issue arbitrary command to a process. Trees are now
    collapsible.
  - you can kill a group of selected processes, and you can monitor
    (refresh) a group of selected processes.
  - regexp support in search mode.
+
+%description -l pl
+ncps jest menad¿erem procesów pozwalaj±cym u¿ykownikowi ogl±daæ i
+zarz±dzaæ procesami.
+
+Mo¿liwo¶ci:
+- mo¿na ³atwo wys³aæ dowolne polecenie do procesu; drzewka s± zwijalne
+- mo¿na zabiæ lub monitorowaæ (od¶wie¿aæ) grupê wybranych procesów
+- obs³uga wyra¿eñ regularnych w trybie wyszukiwania.
 
 %prep
 %setup -q
@@ -31,9 +41,9 @@ Festures:
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/%{_bindir}
+install -d $RPM_BUILD_ROOT%{_bindir}
 
-install ncps $RPM_BUILD_ROOT/%{_bindir}
+install ncps $RPM_BUILD_ROOT%{_bindir}
 
 gzip -9nf README
 
