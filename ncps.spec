@@ -1,43 +1,37 @@
-%define name ncps
-%define version 0.41
-%define release 1mdk
-
-Summary: another processes manager utility
-Name: %{name}
-Version: %{version}
-Release: %{release}
-Source0: %{name}-%{version}.tar.bz2
-Copyright: GPL
-Group: Applications/System
-BuildRoot: /tmp/%{name}-buildroot
-Prefix: %{_prefix}
+Summary:	another processes manager utility
+Name:		ncps
+Version:	0.48
+Release:	1
+License:	GPL
+Group:		Applications/System
+Source0:	http://www.columbia.edu/~pc171/files/%{name}-%{version}.tar.gz
+URL:		http://www.columbia.edu/~pc171/ncps.html
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
- ncps is a processes manager which allows user to see and manage
- processes.
+Ncps is a processes manager which allows user to see and manage processes.
+
+Festures: 
+ * you can issue arbitrary command to a process. Trees are now collapsible. 
+ * you can kill a group of selected processes, and you can monitor (refresh)
+   a group of selected processes.
+ * regexp support in search mode.
 
 %prep
 %setup -q 
+
 %build
 make
+
 %install
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/%{prefix}/bin
-install -s -m 755 ncps $RPM_BUILD_ROOT/%{prefix}/bin
+install -d $RPM_BUILD_ROOT/%{_bindir}
+install -s -m 755 ncps $RPM_BUILD_ROOT/%{_bindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root,0755)
+%defattr(644,root,root,755)
 %doc README
-/%{prefix}/bin/ncps
-
-%changelog
-* Tue Sep  7 1999 Daouda LO <daouda@mandrakesoft.com>
-
--0.41
-- First spec file for Mandrake distribution.
-
-
-# end of file
+/%{_bindir}/ncps
