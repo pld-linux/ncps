@@ -2,7 +2,7 @@ Summary:	Another processes manager utility
 Summary(pl):	Kolejny zarz±dca procesów
 Name:		ncps
 Version:	0.55
-Release:	4
+Release:	5
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://www.math.ohio-state.edu/~pschan/ncps/%{name}-%{version}.tar.gz
@@ -13,7 +13,7 @@ Patch2:		%{name}-fixes.patch
 Patch3:		%{name}-PAGE_SIZE.patch
 URL:		http://www.math.ohio-state.edu/~pschan/ncps/
 BuildRequires:	ncurses-devel
-BuildRequires:	procps-devel >= 3.1.13
+BuildRequires:	procps-devel >= 1:3.2.5-3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
