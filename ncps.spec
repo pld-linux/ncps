@@ -1,5 +1,5 @@
 Summary:	Another processes manager utility
-Summary(pl):	Kolejny zarz±dca procesów
+Summary(pl.UTF-8):   Kolejny zarzÄ…dca procesÃ³w
 Name:		ncps
 Version:	0.55
 Release:	6
@@ -27,14 +27,14 @@ Features:
    (refresh) a group of selected processes.
  - regexp support in search mode.
 
-%description -l pl
-ncps jest programem do zarz±dzania procesami, pozwalaj±cym
-u¿ytkownikowi ogl±daæ je i nimi zarz±dzaæ.
+%description -l pl.UTF-8
+ncps jest programem do zarzÄ…dzania procesami, pozwalajÄ…cym
+uÅ¼ytkownikowi oglÄ…daÄ‡ je i nimi zarzÄ…dzaÄ‡.
 
-Mo¿liwo¶ci:
-- mo¿na ³atwo wys³aæ dowolne polecenie do procesu; drzewka s± zwijalne
-- mo¿na zabiæ lub monitorowaæ (od¶wie¿aæ) grupê wybranych procesów
-- obs³uga wyra¿eñ regularnych w trybie wyszukiwania.
+MoÅ¼liwoÅ›ci:
+- moÅ¼na Å‚atwo wysÅ‚aÄ‡ dowolne polecenie do procesu; drzewka sÄ… zwijalne
+- moÅ¼na zabiÄ‡ lub monitorowaÄ‡ (odÅ›wieÅ¼aÄ‡) grupÄ™ wybranych procesÃ³w
+- obsÅ‚uga wyraÅ¼eÅ„ regularnych w trybie wyszukiwania.
 
 %prep
 %setup -q
