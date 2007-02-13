@@ -1,5 +1,5 @@
 Summary:	Another processes manager utility
-Summary(pl.UTF-8):   Kolejny zarządca procesów
+Summary(pl.UTF-8):	Kolejny zarządca procesów
 Name:		ncps
 Version:	0.55
 Release:	6
