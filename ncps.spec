@@ -2,7 +2,7 @@ Summary:	Another processes manager utility
 Summary(pl.UTF-8):	Kolejny zarządca procesów
 Name:		ncps
 Version:	0.55
-Release:	6
+Release:	7
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://www.math.ohio-state.edu/~pschan/ncps/%{name}-%{version}.tar.gz
@@ -41,7 +41,7 @@ Możliwości:
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
+%patch3 -p0
 
 %build
 CFLAGS="%{rpmcflags} -I/usr/include/ncurses"
