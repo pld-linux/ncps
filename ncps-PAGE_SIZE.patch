@@ -1,10 +1,11 @@
---- ncps-0.55/src/base.h.orig	2004-04-02 17:32:46.000000000 +0000
-+++ ncps-0.55/src/base.h	2004-04-02 17:36:06.000000000 +0000
-@@ -14,6 +14,7 @@
- #include <sys/user.h>
- #include <sys/time.h>
- #include <pwd.h>
-+#include <asm/page.h>
- #include <asm/param.h>
- #include <term.h>
- #undef tab
+--- src/base.h~	2008-11-01 15:05:55.135841990 +0100
++++ src/base.h	2008-11-01 15:07:06.214377297 +0100
+@@ -31,7 +30,7 @@
+ 
+ #define PT_SIZE 5
+ #define ESC_STRETCH 6
+-#define OUTBUF_SIZE (32*PAGE_SIZE*ESC_STRETCH + 8*PAGE_SIZE)
++#define OUTBUF_SIZE (32*PAGE_SIZE*ESC_STRETCH + 8*getpagesize())
+ 
+ /* thanx to Lajos Pajtek for this */
+ #define PAGEDIV ((kb_main_total) >> (page_shift-10))
