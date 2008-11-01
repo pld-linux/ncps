@@ -5,7 +5,7 @@
  #define PT_SIZE 5
  #define ESC_STRETCH 6
 -#define OUTBUF_SIZE (32*PAGE_SIZE*ESC_STRETCH + 8*PAGE_SIZE)
-+#define OUTBUF_SIZE (32*PAGE_SIZE*ESC_STRETCH + 8*getpagesize())
++#define OUTBUF_SIZE (32*getpagesize()*ESC_STRETCH + 8*getpagesize())
  
  /* thanx to Lajos Pajtek for this */
  #define PAGEDIV ((kb_main_total) >> (page_shift-10))
