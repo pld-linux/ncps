@@ -45,6 +45,7 @@ Możliwości:
 
 %build
 CFLAGS="%{rpmcflags} -I/usr/include/ncurses"
+export LIBS="-ltinfo"
 %configure2_13
 %{__make}
 
