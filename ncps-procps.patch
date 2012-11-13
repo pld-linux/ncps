@@ -192,3 +192,32 @@
  	  pmt = sub->pidlist[pos].is_selected;
  	  sub->pidlist[pos].is_selected = !pmt;
        }
+--- ncps-0.55/configure~	2003-01-04 19:21:48.000000000 +0100
++++ ncps-0.55/configure	2012-11-13 14:48:22.432545475 +0100
+@@ -1094,14 +1094,14 @@
+ EOF
+ 
+ 
+-echo $ac_n "checking for openproc in -lproc""... $ac_c" 1>&6
+-echo "configure:1099: checking for openproc in -lproc" >&5
++echo $ac_n "checking for openproc in -lprocps""... $ac_c" 1>&6
++echo "configure:1099: checking for openproc in -lprocps" >&5
+ ac_lib_var=`echo proc'_'openproc | sed 'y%./+-%__p_%'`
+ if eval "test \"`echo '$''{'ac_cv_lib_$ac_lib_var'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   ac_save_LIBS="$LIBS"
+-LIBS="-lproc  $LIBS"
++LIBS="-lprocps  $LIBS"
+ cat > conftest.$ac_ext <<EOF
+ #line 1107 "configure"
+ #include "confdefs.h"
+@@ -1129,7 +1129,7 @@
+ fi
+ if eval "test \"`echo '$ac_cv_lib_'$ac_lib_var`\" = yes"; then
+   echo "$ac_t""yes" 1>&6
+-  LIBS="$LIBS -lproc"
++  LIBS="$LIBS -lprocps"
+ 	for ac_func in meminfo kb_main_total
+ do
+ echo $ac_n "checking for $ac_func""... $ac_c" 1>&6
