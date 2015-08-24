@@ -2,7 +2,7 @@ Summary:	Another processes manager utility
 Summary(pl.UTF-8):	Kolejny zarządca procesów
 Name:		ncps
 Version:	0.55
-Release:	13
+Release:	14
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://www.math.ohio-state.edu/~pschan/ncps/%{name}-%{version}.tar.gz
